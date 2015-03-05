@@ -99,10 +99,10 @@ public class MainActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         /* *************************************
-         *              FACEBOOK               *
-         ***************************************/
-        /* Load the Facebook login button and set up the session callback */
+//         /* *************************************
+//         *              FACEBOOK               *
+//         ***************************************/
+//        /* Load the Facebook login button and set up the session callback */
         mFacebookLoginButton = (LoginButton) findViewById(R.id.login_with_facebook);
         mFacebookLoginButton.setSessionStatusCallback(new Session.StatusCallback() {
             @Override
@@ -184,10 +184,8 @@ public class MainActivity extends ActionBarActivity implements
         mFirebaseRef.addAuthStateListener(new Firebase.AuthStateListener() {
             @Override
             public void onAuthStateChanged(AuthData authData) {
-                if (authData != null) {  // user is logged in
-                    mAuthProgressDialog.hide();
-                    setAuthenticatedUser(authData);
-                }
+                mAuthProgressDialog.hide();
+                setAuthenticatedUser(authData);
             }
         });
 
@@ -290,7 +288,7 @@ public class MainActivity extends ActionBarActivity implements
     private void setAuthenticatedUser(AuthData authData) {
         if (authData != null) {
             /* Hide all the login buttons */
-//            mFacebookLoginButton.setVisibility(View.GONE);
+            mFacebookLoginButton.setVisibility(View.GONE);
             mGoogleLoginButton.setVisibility(View.GONE);
             mPasswordLoginButton.setVisibility(View.GONE);
             mAnonymousLoginButton.setVisibility(View.GONE);
@@ -311,7 +309,7 @@ public class MainActivity extends ActionBarActivity implements
             }
         } else {
             /* No authenticated user show all the login buttons */
-//            mFacebookLoginButton.setVisibility(View.VISIBLE);
+            mFacebookLoginButton.setVisibility(View.VISIBLE);
             mGoogleLoginButton.setVisibility(View.VISIBLE);
             mPasswordLoginButton.setVisibility(View.VISIBLE);
             mAnonymousLoginButton.setVisibility(View.VISIBLE);
