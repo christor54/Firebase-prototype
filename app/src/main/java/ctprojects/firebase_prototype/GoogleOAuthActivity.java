@@ -17,10 +17,7 @@ import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
 
-/**
-* This is a sample GoogleOAuthActivity that has been extracted from {@link com.firebase.samples.logindemo.MainActivity} to
-* allow for better visibility.
-*/
+
 public class GoogleOAuthActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {

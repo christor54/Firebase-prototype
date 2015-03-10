@@ -4,14 +4,19 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.Session;
@@ -30,6 +35,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +45,8 @@ public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+
 
     /* *************************************
      *              GENERAL                *
@@ -51,6 +60,10 @@ public class MainActivity extends ActionBarActivity implements
     /* A reference to the Firebase */
     private Firebase mFirebaseRef;
 
+    /* The URL of the firebase being used */
+    private static final String FIREBASE_URL = "https://glowing-torch-5013.firebaseio.com/";
+//"https://amber-fire-2315.firebaseio.com/";
+//"https://glowing-torch-5013.firebaseio.com/";
     /* Data from the authenticated user */
     private AuthData mAuthData;
 
@@ -86,6 +99,9 @@ public class MainActivity extends ActionBarActivity implements
     /* *************************************
      *              PASSWORD               *
      ***************************************/
+
+    private EditText mEmailEditText;
+    private EditText mPasswordEditText;
     private Button mPasswordLoginButton;
 
     /* *************************************
@@ -110,6 +126,7 @@ public class MainActivity extends ActionBarActivity implements
                 onFacebookSessionStateChange(session, state, exception);
             }
         });
+
 
         /* *************************************
          *               GOOGLE                *
@@ -144,11 +161,16 @@ public class MainActivity extends ActionBarActivity implements
           /* *************************************
          *               PASSWORD              *
          ***************************************/
+        mEmailEditText = (EditText) findViewById(R.id.email_edit_text);
+        mPasswordEditText = (EditText) findViewById(R.id.password_edit_text);
         mPasswordLoginButton = (Button) findViewById(R.id.login_with_password);
         mPasswordLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginWithPassword();
+                String email = mEmailEditText.getText().toString();
+                email=email.toLowerCase();
+                String password = mPasswordEditText.getText().toString();
+                loginWithPassword(email,password);
             }
         });
 
@@ -170,7 +192,7 @@ public class MainActivity extends ActionBarActivity implements
         mLoggedInStatusTextView = (TextView) findViewById(R.id.login_status);
 
         /* Create the Firebase ref that is used for all authentication with Firebase */
-        mFirebaseRef = new Firebase("https://glowing-torch-5013.firebaseio.com/");
+        mFirebaseRef = new Firebase(FIREBASE_URL);
 
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
         mAuthProgressDialog = new ProgressDialog(this);
@@ -232,6 +254,10 @@ public class MainActivity extends ActionBarActivity implements
             logout();
             return true;
         }
+        if(id == R.id.get_hash_key){
+            getShaKey();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -278,7 +304,6 @@ public class MainActivity extends ActionBarActivity implements
         } else {
             mAuthProgressDialog.show();
             mFirebaseRef.authWithOAuthToken(provider, options.get("oauth_token"), new AuthResultHandler(provider));
-
         }
     }
 
@@ -290,6 +315,8 @@ public class MainActivity extends ActionBarActivity implements
             /* Hide all the login buttons */
             mFacebookLoginButton.setVisibility(View.GONE);
             mGoogleLoginButton.setVisibility(View.GONE);
+            mEmailEditText.setVisibility(View.GONE);
+            mPasswordEditText.setVisibility(View.GONE);
             mPasswordLoginButton.setVisibility(View.GONE);
             mAnonymousLoginButton.setVisibility(View.GONE);
             mLoggedInStatusTextView.setVisibility(View.VISIBLE);
@@ -306,11 +333,14 @@ public class MainActivity extends ActionBarActivity implements
             }
             if (name != null) {
                 mLoggedInStatusTextView.setText("Logged in as " + name + " (" + authData.getProvider() + ")");
+                startMapActivity();
             }
         } else {
             /* No authenticated user show all the login buttons */
             mFacebookLoginButton.setVisibility(View.VISIBLE);
             mGoogleLoginButton.setVisibility(View.VISIBLE);
+            mEmailEditText.setVisibility(View.VISIBLE);
+            mPasswordEditText.setVisibility(View.VISIBLE);
             mPasswordLoginButton.setVisibility(View.VISIBLE);
             mAnonymousLoginButton.setVisibility(View.VISIBLE);
             mLoggedInStatusTextView.setVisibility(View.GONE);
@@ -318,6 +348,11 @@ public class MainActivity extends ActionBarActivity implements
         this.mAuthData = authData;
         /* invalidate options menu to hide/show the logout button */
         supportInvalidateOptionsMenu();
+    }
+
+    private void startMapActivity() {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -477,9 +512,9 @@ public class MainActivity extends ActionBarActivity implements
      *              PASSWORD              *
      **************************************
      */
-    public void loginWithPassword() {
+    public void loginWithPassword(String email, String password) {
         mAuthProgressDialog.show();
-        mFirebaseRef.authWithPassword("test@firebaseuser.com", "test1234", new AuthResultHandler("password"));
+        mFirebaseRef.authWithPassword(email,password, new AuthResultHandler("password"));
     }
 
     /* ************************************
@@ -489,5 +524,26 @@ public class MainActivity extends ActionBarActivity implements
     private void loginAnonymously() {
         mAuthProgressDialog.show();
         mFirebaseRef.authAnonymously(new AuthResultHandler("anonymous"));
+    }
+
+    private void getShaKey() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("ctprojects.firebase_prototype",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String message = "KeyHash:" + Base64.encodeToString(md.digest(),
+                        Base64.DEFAULT);
+                Log.v(TAG,message );
+                LogWrapper.showMessage(this,message);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+
+        }
     }
 }

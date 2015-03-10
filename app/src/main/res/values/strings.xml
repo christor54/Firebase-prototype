@@ -2,9 +2,12 @@
 <resources>
 
     <string name="app_name">Firebase-prototype</string>
+    <string name="google_api_key">AIzaSyAz0Sg6m6JKhZ5bR-0MglJICrZ3ic-VXLI</string>
+    <string name="google_map_api_key">AIzaSyA_LDPSaOcuUenS8ztZGugKDu6vpoTL9Pg</string>
+
+    <string name="facebook_app_id">339193019619469</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">339193019619469</string>
     <string name="action_logout">Logout</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_with_google">Login with Google+</string>
@@ -12,5 +15,7 @@
     <string name="login_with_password">Login with Password</string>
     <string name="login_anonymously">Login Anonymously</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_stripe">StripeActivity</string>
 
 </resources>
