@@ -17,8 +17,6 @@ public class StripeActivity extends ActionBarActivity {
 
         Card card = new Card("4242-4242-4242-4242", 12, 2016, "123");
 
-        //Card card = customer.createCard(params);
-
     }
 
 //    public void saveCreditCard(PaymentForm form) {

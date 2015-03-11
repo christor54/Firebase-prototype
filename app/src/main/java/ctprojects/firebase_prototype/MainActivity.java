@@ -40,6 +40,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ctprojects.firebase_prototype.log.LogWrapper;
+
 public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -536,7 +538,7 @@ public class MainActivity extends ActionBarActivity implements
                 String message = "KeyHash:" + Base64.encodeToString(md.digest(),
                         Base64.DEFAULT);
                 Log.v(TAG,message );
-                LogWrapper.showMessage(this,message);
+                LogWrapper.showMessage(this, message);
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

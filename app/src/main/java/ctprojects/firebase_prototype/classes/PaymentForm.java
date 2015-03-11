@@ -1,4 +1,4 @@
-package ctprojects.firebase_prototype;
+package ctprojects.firebase_prototype.classes;
 
 /**
  * Created by christophe on 3/9/2015.

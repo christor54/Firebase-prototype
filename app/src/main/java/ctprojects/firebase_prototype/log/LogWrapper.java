@@ -1,4 +1,4 @@
-package ctprojects.firebase_prototype;
+package ctprojects.firebase_prototype.log;
 
 import android.app.Activity;
 import android.util.Log;
