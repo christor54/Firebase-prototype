@@ -60,8 +60,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback,GoogleAp
             circleOptions.center(myPosition);
             circleOptions.radius(Constants.CERCLE_RADIUS);
             map.addCircle(circleOptions);
-
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition,
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,
                     Constants.INITIAL_MAP_ZOOM));
         }
 
@@ -123,7 +122,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback,GoogleAp
         circleOptions.radius(1000);
         map.addCircle(circleOptions);
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition,
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition,
                 Constants.INITIAL_MAP_ZOOM));
 
     }
@@ -148,4 +147,34 @@ public class MapActivity extends Activity implements OnMapReadyCallback,GoogleAp
                     Constants.INITIAL_MAP_ZOOM));
         }
     }
+
+//    private void logout() {
+//        if (this.mAuthData != null) {
+//            /* logout of Firebase */
+//            mFirebaseRef.unauth();
+//            /* Logout of any of the Frameworks. This step is optional, but ensures the user is not logged into
+//             * Facebook/Google+ after logging out of Firebase. */
+//            if (this.mAuthData.getProvider().equals("facebook")) {
+//                /* Logout from Facebook */
+//                Session session = Session.getActiveSession();
+//                if (session != null) {
+//                    if (!session.isClosed()) {
+//                        session.closeAndClearTokenInformation();
+//                    }
+//                } else {
+//                    session = new Session(getApplicationContext());
+//                    Session.setActiveSession(session);
+//                    session.closeAndClearTokenInformation();
+//                }
+//            } else if (this.mAuthData.getProvider().equals("google")) {
+//                /* Logout from Google+ */
+//                if (mGoogleApiClient.isConnected()) {
+//                    Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+//                    mGoogleApiClient.disconnect();
+//                }
+//            }
+//            /* Update authenticated user and show login buttons */
+//            setAuthenticatedUser(null);
+//        }
+//    }
 }

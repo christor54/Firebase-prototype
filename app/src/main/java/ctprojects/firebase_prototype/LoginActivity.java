@@ -42,11 +42,11 @@ import java.util.Map;
 
 import ctprojects.firebase_prototype.log.LogWrapper;
 
-public class MainActivity extends ActionBarActivity implements
+public class LoginActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
 
 
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements
     private Firebase mFirebaseRef;
 
     /* The URL of the firebase being used */
-    private static final String FIREBASE_URL = "https://glowing-torch-5013.firebaseio.com/";
+    private static final String FIREBASE_URL = "https://amber-fire-2315.firebaseio.com/";
 //"https://amber-fire-2315.firebaseio.com/";
 //"https://glowing-torch-5013.firebaseio.com/";
     /* Data from the authenticated user */
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
 //         /* *************************************
 //         *              FACEBOOK               *
@@ -444,7 +444,7 @@ public class MainActivity extends ActionBarActivity implements
 
                 try {
                     String scope = String.format("oauth2:%s", Scopes.PLUS_LOGIN);
-                    token = GoogleAuthUtil.getToken(MainActivity.this, Plus.AccountApi.getAccountName(mGoogleApiClient), scope);
+                    token = GoogleAuthUtil.getToken(LoginActivity.this, Plus.AccountApi.getAccountName(mGoogleApiClient), scope);
                 } catch (IOException transientEx) {
                     /* Network or server error */
                     Log.e(TAG, "Error authenticating with Google: " + transientEx);

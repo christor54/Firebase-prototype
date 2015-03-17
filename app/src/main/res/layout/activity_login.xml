@@ -28,20 +28,18 @@
         android:textAlignment="center"
         android:layout_marginTop="20dp" />
 
-
-
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_marginTop="20dp"
         android:inputType="textEmailAddress"
-        android:text="Email"
+        android:hint="email"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/password_edit_text"
         android:inputType="textPassword"
-        android:text="Password"
+        android:hint="password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
