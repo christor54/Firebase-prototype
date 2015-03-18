@@ -18,4 +18,14 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_stripe">StripeActivity</string>
 
+
+    <string name="title_activity_skipper">SkipperActivity</string>
+    <string name="title_section1">Map</string>
+    <string name="title_section2">Profile</string>
+    <string name="title_section3">Car</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+
+
 </resources>

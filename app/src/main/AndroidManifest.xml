@@ -35,6 +35,10 @@
             </intent-filter>
         </activity>
         <activity android:name="com.facebook.LoginActivity" />
+
+        <activity
+            android:name=".NavigationDrawerActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"

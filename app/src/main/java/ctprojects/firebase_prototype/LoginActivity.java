@@ -63,7 +63,7 @@ public class LoginActivity extends ActionBarActivity implements
     private Firebase mFirebaseRef;
 
     /* The URL of the firebase being used */
-    private static final String FIREBASE_URL = "https://amber-fire-2315.firebaseio.com/";
+    private static final String FIREBASE_URL = "https://glowing-torch-5013.firebaseio.com/";
 //"https://amber-fire-2315.firebaseio.com/";
 //"https://glowing-torch-5013.firebaseio.com/";
     /* Data from the authenticated user */
@@ -353,7 +353,7 @@ public class LoginActivity extends ActionBarActivity implements
     }
 
     private void startMapActivity() {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, NavigationDrawerActivity.class);
         startActivity(intent);
     }
 
