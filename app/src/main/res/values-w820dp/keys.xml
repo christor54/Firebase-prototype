@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="firebase_url">https://glowing-torch-5013.firebaseio.com</string>
 
 
     <!-- Your Facebook App ID from your app settings on https://developers.facebook.com/ -->

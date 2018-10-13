@@ -4,7 +4,7 @@
     <string name="app_name">Firebase-prototype</string>
     <string name="google_api_key">AIzaSyAz0Sg6m6JKhZ5bR-0MglJICrZ3ic-VXLI</string>
     <string name="google_map_api_key">AIzaSyA_LDPSaOcuUenS8ztZGugKDu6vpoTL9Pg</string>
-
+    <string name="firebase_url">https://glowing-torch-5013.firebaseio.com</string>
     <string name="facebook_app_id">339193019619469</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
